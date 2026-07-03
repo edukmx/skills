@@ -404,14 +404,21 @@ An independently deployable service exposing a versioned transport contract.
 
 ## Report Contract & Template
 
-Instruct every sub-agent to use this severity legend and return only its own
-category section:
+Instruct every sub-agent to return its own category section **as a Markdown
+table**, one row per finding, sorted by severity (🔴 → 🟡 → 🟢). Severity legend:
 
 - 🔴 **Critical** — breaks the architecture contract, correctness, or security.
 - 🟡 **Major** — significant maintainability/quality issue; should fix.
 - 🟢 **Minor** — polish / nice-to-have.
 
-Each finding: `severity | path:line | what | why it matters | suggested fix`.
+Per-category table format (keep these exact columns):
+
+| Severity | Location | Issue | Why it matters | Suggested fix |
+|---|---|---|---|---|
+| 🔴 | `path:line` | <what> | <impact> | <concrete fix> |
+
+If a category has no findings, emit a single row:
+`| 🟢 | — | No issues found | — | — |`.
 
 Merge everything into this final report:
 
@@ -436,22 +443,40 @@ Overall: 🔴 / 🟡 / 🟢  — <one-line summary>
 2. ...
 
 ## SOLID
-<findings>
+
+| Severity | Location | Issue | Why it matters | Suggested fix |
+|---|---|---|---|---|
+| | | | | |
 
 ## Clean Code
-<findings>
+
+| Severity | Location | Issue | Why it matters | Suggested fix |
+|---|---|---|---|---|
+| | | | | |
 
 ## Code Smells
-<findings>
+
+| Severity | Location | Issue | Why it matters | Suggested fix |
+|---|---|---|---|---|
+| | | | | |
 
 ## Good Practices & Patterns
-<findings>
+
+| Severity | Location | Issue | Why it matters | Suggested fix |
+|---|---|---|---|---|
+| | | | | |
 
 ## Go Conventions
-<findings>
+
+| Severity | Location | Issue | Why it matters | Suggested fix |
+|---|---|---|---|---|
+| | | | | |
 
 ## Concurrency & Performance
-<findings>
+
+| Severity | Location | Issue | Why it matters | Suggested fix |
+|---|---|---|---|---|
+| | | | | |
 
 ## Notes
 - Repo conventions applied: <e.g. no-comments policy, lint config>
