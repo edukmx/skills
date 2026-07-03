@@ -54,10 +54,15 @@ guess the architecture.
    - `CONCURRENCY & PERFORMANCE`
    Never audit a category inline in this thread. Never merge two categories into
    one sub-agent.
-2. **Launch them in parallel** — issue all six `Task` calls in a single
-   message. Use a **read-only** exploration sub-agent (prefer `explore`; use
-   `generalPurpose` with `readonly: true` if `explore` is unavailable). The audit
-   never modifies files.
+2. **Launch them in parallel on a high-capability reasoning model** — issue all
+   six `Task` calls in a single message. Each auditor MUST run on a top-tier
+   reasoning model, **never** `composer-2.5-fast`: use
+   **`claude-opus-4-8-thinking-high`** (preferred) or **`gpt-5.5-high`**, passing
+   the `model:` field in every `Task` call. Use a **read-only** exploration
+   sub-agent (prefer `explore`; use `generalPurpose` with `readonly: true` if
+   `explore` is unavailable). The audit never modifies files. (Only the
+   comment-cleanup sub-agent in Rule 7 uses the fast `composer-2.5-fast` model —
+   it is mechanical; the six auditors need deep reasoning.)
 3. **Whole-project scope** — each sub-agent audits the complete repository for
    its axis, not a single file or diff, unless the user explicitly scopes it.
 4. **Inject context into every sub-agent** — pass (a) the selected architecture
@@ -108,10 +113,11 @@ if `AGENT.md` forbids code comments, the GO CONVENTIONS agent must NOT flag
 anything else. Pass it the repo comment policy you detected in step 2. It edits
 files; nothing else runs while it does. Capture its summary of what was removed.
 
-**Step 4 — Delegate.** For each category, send a `Task` call whose prompt =
-architecture profile + category brief + repo conventions + report contract +
-severity legend. Tell the agent to audit the whole module and return ONLY its
-category report section.
+**Step 4 — Delegate.** For each category, send a `Task` call (on the reasoning
+model from Rule 2 — `claude-opus-4-8-thinking-high` or `gpt-5.5-high`) whose
+prompt = architecture profile + category brief + repo conventions + report
+contract + severity legend. Tell the agent to audit the whole module and return
+ONLY its category report section.
 
 **Step 5–7 — Merge & report.** Assemble the sections, compute the per-category
 verdict and an overall verdict, then list the highest-severity items first, and

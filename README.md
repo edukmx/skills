@@ -27,8 +27,8 @@ Audits a whole Go project for **SOLID**, **clean code**, **code smells**, **good
 
 - Invoke as `/project-audit [architecture]`.
 - Supported architecture profiles: `hexagonal`, `go-library`, `cqrs`, `clean-architecture`, `layered`, `event-driven`, `microservice`.
-- Orchestrator-style: forces **one dedicated sub-agent per audit category** (six read-only auditors run in parallel) and merges everything into a single report with per-category verdicts and a prioritized remediation list.
-- Runs a comment-cleanup write sub-agent first (on `composer-2.5-fast`) that strips novel/narrative code comments, keeping only strictly necessary ones, respecting the target repo's comment policy.
+- Orchestrator-style: forces **one dedicated sub-agent per audit category** (six read-only auditors run in parallel on a top-tier reasoning model — `claude-opus-4-8-thinking-high` or `gpt-5.5-high`) and merges everything into a single report with per-category verdicts and a prioritized remediation list.
+- Runs a comment-cleanup write sub-agent first (on the fast `composer-2.5-fast` model) that strips novel/narrative code comments, keeping only strictly necessary ones, respecting the target repo's comment policy.
 
 ```bash
 /project-audit hexagonal
